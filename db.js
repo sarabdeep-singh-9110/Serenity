@@ -2,7 +2,7 @@ const sqlite3 = require('sqlite3').verbose();
 const { open } = require('sqlite');
 
 async function initDB() {
-  const dbPath = process.env.NODE_ENV === 'production' ? '/data/database.sqlite' : './database.sqlite';
+  const dbPath = './database.sqlite';
   const db = await open({
     filename: dbPath,
     driver: sqlite3.Database
