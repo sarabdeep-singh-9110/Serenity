@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Serenity — Stress Management Bot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Background orbs -->
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+
+  <!-- Login Overlay -->
+  <div class="login-overlay open" id="login-overlay">
+    <div class="login-card">
+      <div class="login-logo">
+        <div class="logo-mark">S</div>
+        <span class="logo-text">Serenity</span>
+      </div>
+      <h2 id="auth-title">Welcome Back</h2>
+      <p class="login-sub" id="auth-sub">Please sign in to continue your journey.</p>
+      
+      <div id="auth-error" class="auth-error"></div>
+
+      <form id="login-form">
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="hello@example.com" required>
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="ctrl-btn primary login-btn" id="auth-btn">Sign In</button>
+        <button type="button" class="auth-toggle" id="auth-toggle">Don't have an account? Sign up</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="app-shell">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-mark">S</div>
+        <span class="logo-text">Serenity</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-btn" id="new-chat-btn" title="New Chat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+        </button>
+        <button class="nav-btn active" data-panel="chat" title="Chat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+        </button>
+        <button class="nav-btn" data-panel="history" title="History">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </button>
+        <button class="nav-btn" data-panel="breathe" title="Breathing">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </button>
+        <button class="nav-btn" data-panel="exercises" title="Exercises">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="mode-badge" id="mode-badge">
+          <span class="mode-dot"></span>
+          <span class="mode-label">Offline</span>
+        </div>
+        <button class="clear-btn" id="logout-btn" title="Sign out">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" /></svg>
+        </button>
+        <button class="clear-btn" id="clear-btn" title="Clear chat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- ── Chat Panel ── -->
+      <section class="panel active" id="panel-chat">
+        <div class="panel-header">
+          <h1>How are you feeling?</h1>
+          <p class="panel-sub">I'm here to listen — no judgment, no rush.</p>
+        </div>
+
+        <!-- Mood chips -->
+        <div class="mood-chips">
+          <button class="chip" data-msg="I'm feeling really anxious right now">Anxious</button>
+          <button class="chip" data-msg="I'm completely overwhelmed">Overwhelmed</button>
+          <button class="chip" data-msg="I feel exhausted and drained">Exhausted</button>
+          <button class="chip" data-msg="I'm feeling stressed about work">Stressed</button>
+          <button class="chip" data-msg="I need a breathing exercise">Breathing exercise</button>
+          <button class="chip" data-msg="Help me feel grounded">Grounding</button>
+        </div>
+
+        <!-- Chat messages -->
+        <div class="chat-messages" id="chat-messages">
+          <div class="msg bot welcome-msg">
+            <div class="msg-avatar">S</div>
+            <div class="msg-bubble">
+              <p>Hi there 🌿 I'm Serenity, your calm companion. Whatever you're carrying right now — stress, anxiety, or just a heavy day — you don't have to face it alone.</p>
+              <p style="margin-top:0.5rem; opacity:0.85">Tell me how you're feeling, or choose a quick option above to get started.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Input -->
+        <div class="chat-input-bar">
+          <div class="input-wrap">
+            <textarea id="msg-input" placeholder="Tell me how you're feeling..." rows="1" maxlength="1000"></textarea>
+            <button class="send-btn" id="send-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </div>
+          <div class="char-count"><span id="char-count">0</span>/1000</div>
+        </div>
+      </section>
+
+      <!-- ── Breathing Panel ── -->
+      <section class="panel" id="panel-breathe">
+        <div class="panel-header">
+          <h1>Breathing Exercises</h1>
+          <p class="panel-sub">Follow the circle. Let your body lead.</p>
+        </div>
+
+        <!-- Pattern selector -->
+        <div class="pattern-selector">
+          <button class="pattern-btn active" data-pattern="box">Box (4-4-4-4)</button>
+          <button class="pattern-btn" data-pattern="478">4-7-8</button>
+          <button class="pattern-btn" data-pattern="calm">Calm (4-6)</button>
+        </div>
+
+        <!-- Animation -->
+        <div class="breathe-stage">
+          <div class="breathe-ring outer"></div>
+          <div class="breathe-ring middle"></div>
+          <div class="breathe-circle" id="breathe-circle">
+            <div class="breathe-inner">
+              <div class="breathe-count" id="breathe-count">4</div>
+              <div class="breathe-action" id="breathe-action">Inhale</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="breathe-progress">
+          <div class="breathe-fill" id="breathe-fill"></div>
+        </div>
+        <div class="breathe-status" id="breathe-status">Choose a pattern and press Start</div>
+
+        <div class="breathe-controls">
+          <button class="ctrl-btn primary" id="breathe-start">Start</button>
+          <button class="ctrl-btn" id="breathe-reset">Reset</button>
+        </div>
+
+        <!-- Cycle counter -->
+        <div class="cycle-counter">
+          <span>Cycles completed: </span>
+          <strong id="cycle-count">0</strong>
+        </div>
+      </section>
+
+      <!-- ── Exercises Panel ── -->
+      <section class="panel" id="panel-exercises">
+        <div class="panel-header">
+          <h1>Mindfulness Exercises</h1>
+          <p class="panel-sub">Simple techniques to anchor you to the present.</p>
+        </div>
+
+        <div class="exercises-grid" id="exercises-grid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- ── History Panel ── -->
+      <section class="panel" id="panel-history">
+        <div class="panel-header">
+          <h1>Previous Chats</h1>
+          <p class="panel-sub">Reflect on your past conversations.</p>
+        </div>
+        <div class="history-list" id="history-list">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Exercise Detail Modal -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modal-close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="modal-content" id="modal-content"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
